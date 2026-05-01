@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+
+override_dh_auto_build:
+	chmod +x uc-tool
+	help2man --no-info \
+	         --name="generate CPU microcode CPIO images and manage initrd" \
+	         --include=debian/uc-tool.h2m \
+	         ./uc-tool > uc-tool.1
