@@ -103,10 +103,10 @@ Usage:  uc-tool [options]
 
 ## Building the .deb
 
-**Requirements:** `devscripts`, `debhelper`, `help2man`
+**Requirements:** `devscripts`, `debhelper`
 
 ```sh
-sudo apt install devscripts debhelper help2man
+sudo apt install devscripts debhelper
 ```
 
 From the repository root:
@@ -122,7 +122,7 @@ This copies the current `uc-tool` script into the source tree and runs
 Or build manually:
 
 ```sh
-cd deb-src/uc-tool
+cd deb-src/uc-tool-mx
 cp ../../uc-tool .
 debuild -uc -us
 ```
