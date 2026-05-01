@@ -272,3 +272,15 @@ debian/uc-tool-mx/
 # lintian overrides cache
 .lintian-overrides.cache
 
+# in buld dir deb-src 
+deb-src/*.deb
+deb-src/*.ddeb
+deb-src/*.dsc
+deb-src/*.tar.gz
+deb-src/*.tar.xz
+deb-src/*.tar.bz2
+deb-src/*.changes
+deb-src/*.build
+deb-src/*.buildinfo
+deb-src/*.upload
+
