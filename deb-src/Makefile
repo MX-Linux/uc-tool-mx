@@ -20,16 +20,19 @@ release: prepare
 	@echo "Built: $$(ls -1 $(PKG)_*.deb 2>/dev/null | tail -1)"
 
 prepare:
-	install -m 0755 ../$(BIN) $(SRCDIR)/$(BIN)
-	cp ../$(MAN)    $(SRCDIR)/$(MAN)
-	cp ../README.md $(SRCDIR)/README.md
+	install -m 0755 ../$(BIN)                  $(SRCDIR)/$(BIN)
+	cp ../$(MAN)                               $(SRCDIR)/$(MAN)
+	cp ../README.md                            $(SRCDIR)/README.md
+	install -Dm0644 ../$(BIN).bash-completion  $(SRCDIR)/completions/$(BIN)
 
 sign: release
 
 clean:
 	#rm -f $(PKG)_*.deb $(PKG)_*.buildinfo $(PKG)_*.changes
-	rm $(PKG)_*.build
-	rm -f $(SRCDIR)/$(BIN)
-	rm -f $(SRCDIR)/$(MAN)
-	rm -f $(SRCDIR)/README.md
+	rm $(PKG)_*.build          || true
+	rm -f $(SRCDIR)/$(BIN)     || true
+	rm -f $(SRCDIR)/$(MAN)     || true
+	rm -f $(SRCDIR)/README.md  || true
+	rm -f $(SRCDIR)/completions/$(BIN) || true
+	rmdir $(SRCDIR)/completions || true
 	cd $(SRCDIR) && debian/rules clean 2>/dev/null || true

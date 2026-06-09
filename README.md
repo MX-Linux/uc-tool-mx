@@ -83,14 +83,16 @@ Usage:  uc-tool [options]
                            ones; other preamble sections are kept intact
   -H  --has-ucode          Check if -i <initrd> contains ucode CPIOs;
                            exits 0=found, 1=none  (no writes)
-  -x  --extract[=<mode>]   Extract initrd sections to -d <dir> (must be empty or new):
-                             (bare)    ucode CPIOs only
-                             =all     all sections as raw files
-                             =unpack  all sections + unpack each into <name>.D/
-  -l  --list[=<mode>]      List initrd sections (no files written):
-                             (bare)    ucode CPIOs only -- vendor, size, files
-                             =all     all sections -- name, size, compression
-                             =unpack  all sections + list files inside each
+  -x  --extract[=ucode|all|unpack]
+                           Extract initrd sections to -d <dir> (must be empty or new):
+                             ucode    ucode CPIOs only [default]
+                             all      all sections as raw files
+                             unpack   all sections + unpack each into <name>.D/
+  -l  --list[=ucode|all|unpack]
+                           List initrd sections (no files written):
+                             ucode    ucode CPIOs only -- vendor, size, files [default]
+                             all      all sections -- name, size, compression
+                             unpack   all sections + list files inside each
       --repack=<dir>        Repack sections from <dir> back into -i <initrd>;
                              uses <name>.D/ if it exists, else the raw file
   -h  --help               Show this usage
@@ -127,18 +129,17 @@ cp ../../uc-tool .
 debuild -uc -us
 ```
 
-To bump the version before building:
-1. Edit `VERSION=` near the top of `uc-tool`
-2. Add a new entry to `deb-src/uc-tool/debian/changelog`:
-   ```sh
-   cd deb-src/uc-tool
-   dch -v 1.1 "Your change summary"
-   ```
-3. Run `make` from `deb-src/`
+To bump the version before building, only the changelog needs updating —
+version and date are injected into the installed script and man page automatically:
+```sh
+cd deb-src/uc-tool-mx
+dch -v 26.06.1 "Your change summary"
+```
+Then run `make` from `deb-src/`.
 
 ## License
 
-GNU General Public License v3 — see [debian/copyright](deb-src/uc-tool/debian/copyright)
+GNU General Public License v3 — see [debian/copyright](deb-src/uc-tool-mx/debian/copyright)
 or <https://www.gnu.org/licenses/gpl-3.0.html>.
 
 Copyright © 2026 fehlix \<fehlix@mxlinux.org\>  

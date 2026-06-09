@@ -14,6 +14,7 @@ Depends: ${misc:Depends},
  findutils,
  mount,
  iucode-tool
+Suggests: bash-completion
 Description: Generate and inject AMD/Intel microcode CPIO images into initrd
  uc-tool builds early-boot CPU microcode CPIO images directly from
  system firmware directories (or a squashfs firmware image) and optionally

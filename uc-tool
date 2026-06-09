@@ -28,8 +28,8 @@
 # based on ideas and functions used in unpack-initrd (thanks BitJam)
 #------------------------------------------------------------------------------
 
-     VERSION="26.05.2"
-VERSION_DATE="2026-05-03"
+     VERSION="@VERSION@"
+VERSION_DATE="@VERSION_DATE@"
 
 ME=${0##*/}
 
@@ -121,14 +121,16 @@ Options:
                            ones; other preamble sections are kept intact
   -H  --has-ucode          Check if -i <initrd> contains ucode CPIOs;
                            exits 0=found, 1=none  (no writes)
-  -x  --extract[=<mode>]   Extract initrd sections to -d <dir> (empty or new):
-                             (bare)    ucode CPIOs only
-                             =all     all sections as raw files
-                             =unpack  all sections + unpack each into <name>.D/
-  -l  --list[=<mode>]      List initrd sections (no files written):
-                             (bare)    ucode CPIOs only -- vendor, size, files
-                             =all     all sections -- name, size, compression
-                             =unpack  all sections + list files inside each
+  -x  --extract[=ucode|all|unpack]
+                           Extract initrd sections to -d <dir> (empty or new):
+                             ucode    ucode CPIOs only [default]
+                             all      all sections as raw files
+                             unpack   all sections + unpack each into <name>.D/
+  -l  --list[=ucode|all|unpack]
+                           List initrd sections (no files written):
+                             ucode    ucode CPIOs only -- vendor, size, files [default]
+                             all      all sections -- name, size, compression
+                             unpack   all sections + list files inside each
       --repack=<dir>        Repack sections from <dir> back into -i <initrd>;
                              uses <name>.D/ if it exists, else the raw file
   -h  --help               Show this usage
@@ -282,7 +284,7 @@ do_check_ucode() {
 #------------------------------------------------------------------------------
 do_extract() {
     [ -z "$INITRD_FILE" ]  && fatal "Initrd file required -- use -i <file>"
-    [ -z "$OUT_DIR" ]      && fatal "Output directory required -- use -o <dir>"
+    [ -z "$OUT_DIR" ]      && fatal "Output directory required -- use -d <dir>"
     test -e "$INITRD_FILE" || fatal "Initrd not found: %s"   "$INITRD_FILE"
     test -r "$INITRD_FILE" || fatal "Cannot read initrd: %s" "$INITRD_FILE"
     if [ -e "$OUT_DIR" ]; then
@@ -398,7 +400,7 @@ do_generate() {
     # -- resolve output directory -----------------------------------------
     if [ -z "$OUT_DIR" ]; then
         [ -z "$INITRD_FILE" ] \
-            && fatal "Output directory is required -- use -o <dir> (or -i <initrd> for temp dir)"
+            && fatal "Output directory is required -- use -d <dir> (or -i <initrd> for temp dir)"
         if [ "$KEEP_UCODE" ]; then
             OUT_DIR=$(dirname "$(_realpath "$INITRD_FILE")")
         else

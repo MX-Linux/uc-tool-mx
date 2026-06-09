@@ -275,3 +275,4 @@ debian/uc-tool-mx/
 README.md
 uc-tool
 uc-tool.1
+completions/

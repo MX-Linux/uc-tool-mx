@@ -1,3 +1,13 @@
+uc-tool-mx (26.06.1) mx; urgency=medium
+
+  * Add bash-completion for uc-tool.
+  * Clarify --extract and --list help/man page: show valid modes in
+    syntax line, replace ambiguous "(bare)" with "ucode [default]".
+  * debian/rules: inject version and date from changelog into installed
+    script and man page.
+
+ -- fehlix <fehlix@mxlinux.org>  Mon, 08 Jun 2026 19:12:48 -0400
+
 uc-tool-mx (26.05.2) mx; urgency=medium
 
   * Fix verbose mode fd6 redirection in main.
